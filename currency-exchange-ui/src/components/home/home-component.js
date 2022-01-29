@@ -1,17 +1,3 @@
-import React from 'react';
-import './home-component.css'
-function Home() {
-  return (<section id='home-section'>
-      <div class="black-overlay">
-        <div class="home-content center">
-            <h1>The World's Trusted Currency Authority</h1>
-            <p>Check exchange rates, send money internationally, and free currency tools</p>
-        </div>
-      </div>
-   
-
-            
-  </section>);
-}
-
-export default Home;
+version https://git-lfs.github.com/spec/v1
+oid sha256:0c510b8a388a228c5871a6f84aaa7171c2d5715388c928c2432230f42d7af7dc
+size 444
