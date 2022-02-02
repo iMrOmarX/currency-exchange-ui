@@ -1,3 +1,26 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:c0b9501164bc2b9fc702b024f514f5ba661995c821b6dc9eaf565e9c385d60b0
-size 792
+import React from 'react';
+import './header-component.css'
+
+function Header() {
+  return (<header>
+    <div class="nav center">
+        <img src={require("../../img/money-transfer-logo.png")} className="image-logo" alt="logo"/>
+        <div class="righ-side">
+            <li><a href="#" class="list">Converter</a> </li>
+            <li class="list">Send money</li>
+            <li class="list">Business & Api</li>
+            <li class="list">Tools</li>
+            <li class="list">Resources</li>
+        </div>
+    </div>
+
+    <div class="btns">
+        <li id="sign-in" class="header-btn">
+            <a href="">Sign in</a>
+        </li>
+        <li id="get-app" class="header-btn"><a href="">Get the App</a></li>
+    </div>
+  </header>);
+}
+
+export default Header;

@@ -1,3 +1,62 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:529ca058346309b7c6b9feb12acfd29738ef42094a23121e0e39e6062c83ef91
-size 1396
+
+* {
+    box-sizing: border-box;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+body {
+    background-color: #f1f1f1;
+    padding: 0;
+    margin: 0;
+    overflow-x: hidden;
+    text-align: center;
+}
+
+.center {
+    text-align: center;
+    align-items: center;
+}
+
+
+.home-content {
+    display: flex;
+    flex-direction: column;
+    min-width: 100%;
+    text-align: center;
+}
+
+.home-content>p {
+    color: rgb(255, 255, 255);
+    font-size: 24px;
+    color: #ffffff;
+    margin: 0 0 15px;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px; 
+}
+ 
+#home-section {
+    position: relative;
+    display:flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+
+#home-section { 
+    display: flex;
+
+    width: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image: url("../../img/background-black-overlayed.png");
+    height: 500px;
+    background-position: 50% 0;
+}
+
+
+.home-content> h1 {
+    font-size: 35px;
+    padding-top: 30px;
+}

@@ -1,0 +1,50 @@
+#convert-section {
+    width: 1200px;
+    height: 200px;
+    background-color: wheat;
+    display: flex;
+    justify-content: center;
+}
+
+#from-currency-field>.currency-dropdown {
+    width: 300px;
+}
+
+#to-currency-field>.currency-dropdown {
+    width: 300px;
+}
+
+.field {
+    margin: 5px;
+    margin-top: 50px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.amount-input-field {
+    height: 35px;
+    border: none;
+    border-radius: 2px;
+    width: 300px;
+}
+
+.field>label {
+    font-size: 16px;
+    text-align: left;
+    padding-left: 2px;
+}
+
+.switch-btn {
+    height: 50px;
+    margin-top:60px;
+    border: none;
+    background: white;
+    border-radius: 50%;
+    font-size: 27px;
+    padding: 9px;
+}
+.convert-btn {
+    align-self: flex-end;
+    margin-top: 50px;
+}
