@@ -25,32 +25,35 @@ function ConvertSection() {
     setshowResult(true);
   }
   return <div id="convert-section">
+    <div className='convert-input-section'>
       <div id="amount-field" className='field'>
-        <label><b>Amount</b></label>
-        <input type="text" className='amount-input-field ui fluid'/>
-      </div>
+          <label><b>Amount</b></label>
+          <input type="text" className='amount-input-field ui fluid'/>
+        </div>
 
-      <div id="from-currency-field" className='field'>
-        <label><b>From</b></label>
-        <CurrencyDropdown className="currency-dropdown" setvalue={setfromCurrency}></CurrencyDropdown>
-      </div>
+        <div id="from-currency-field" className='field'>
+          <label><b>From</b></label>
+          <CurrencyDropdown className="currency-dropdown" setvalue={setfromCurrency}></CurrencyDropdown>
+        </div>
 
-      <button className='switch-btn field'>
-        <FaExchangeAlt></FaExchangeAlt>
-      </button>
-      <div id="to-currency-field" className='field'>
-        
-        <label><b>To</b></label>
-        <CurrencyDropdown className="currency-dropdown" setvalue={settoCurrency}></CurrencyDropdown>
-        
-        <button className='convert-btn field' onClick={convertCurrency}>Convert</button>
-      </div>
+        <button className='switch-btn field'>
+          <FaExchangeAlt></FaExchangeAlt>
+        </button>
+        <div id="to-currency-field" className='field'>
+          
+          <label><b>To</b></label>
+          <CurrencyDropdown className="currency-dropdown" setvalue={settoCurrency}></CurrencyDropdown>
+          
+          <button className='convert-btn field' onClick={convertCurrency}>Convert</button>
+        </div>
 
+    </div>
+      
 
       <div className='result-section' style={{
         display:(showResult)? "flex" : "none"
-      }}>
-
+      }}> 
+        sdafdsfdsafdsfasddsa
       </div>
   </div>;
 }

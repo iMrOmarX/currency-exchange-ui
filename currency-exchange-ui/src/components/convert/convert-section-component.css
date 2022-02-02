@@ -1,11 +1,20 @@
 #convert-section {
+    background-color: wheat;
+    display: flex;
+    flex-direction: column;
+}
+
+.convert-input-section {
     width: 1200px;
     height: 200px;
-    background-color: wheat;
     display: flex;
     justify-content: center;
 }
 
+.result-section {
+    height: 60px;
+    width: 100%;
+}
 #from-currency-field>.currency-dropdown {
     width: 300px;
 }
