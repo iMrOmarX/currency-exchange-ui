@@ -2,5 +2,6 @@
     margin: 100px;
 }
 
-.exchange-table {
+.add-new-currency-dropdown::placeholder {
+    background-color:red !important; 
 }

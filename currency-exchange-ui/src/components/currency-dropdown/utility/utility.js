@@ -17,7 +17,7 @@ fs.readFile('./countries.json', (err, data) => {
             key: element.currency.code,
             text: element.currency.code + " - " +  element.currency.name,
             value: element.currency.code,
-            flag: element.isoAlpha2.toLowerCase()
+            flag: element.currency.code.substring(0,2).toLowerCase()
         }
     });
 

@@ -11,14 +11,14 @@ function ConvertSection() {
   const [fromCurrency, setfromCurrency] = useState(null);
   const [toCurrency, settoCurrency] = useState(null);
 
-  const [amount, setamount] = useState(-1);
+  const [amount, setamount] = useState(-1); 
 
   const [conversionValue, setconversionValue] = useState(0);
 
   const [isInvalidInput, setisInvalidInput] = useState(false);
 
   const convertCurrency = async () => {
-    if(fromCurrency === null || toCurrency === null){
+    if(fromCurrency === null || toCurrency === null || amount=== -1){
       return
     }
 
@@ -45,6 +45,13 @@ function ConvertSection() {
       setamount(newValue)
     }
   }
+
+  const switchCurrencies = () => {
+    let tmp = fromCurrency ;
+    setfromCurrency(toCurrency);
+    settoCurrency(tmp);
+    setconversionValue(1/conversionValue)
+  }
   return <div id="convert-section">
     <div className='convert-input-section'>
       <div id="amount-field" className='field'>
@@ -59,16 +66,17 @@ function ConvertSection() {
 
         <div id="from-currency-field" className='field'>
           <label><b>From</b></label>
-          <CurrencyDropdown className="currency-dropdown" setvalue={setfromCurrency}></CurrencyDropdown>
+          <CurrencyDropdown className="currency-dropdown" setvalue={setfromCurrency} value={fromCurrency}></CurrencyDropdown>
         </div>
 
-        <button className='switch-btn field'>
+        <button className='switch-btn field' onClick={switchCurrencies}>
           <FaExchangeAlt></FaExchangeAlt>
         </button>
+
         <div id="to-currency-field" className='field'>
           
           <label><b>To</b></label>
-          <CurrencyDropdown className="currency-dropdown" setvalue={settoCurrency}></CurrencyDropdown>
+          <CurrencyDropdown className="currency-dropdown" setvalue={settoCurrency} value={toCurrency}></CurrencyDropdown>
           
           <button className='convert-btn field' onClick={convertCurrency}>Convert</button>
         </div>

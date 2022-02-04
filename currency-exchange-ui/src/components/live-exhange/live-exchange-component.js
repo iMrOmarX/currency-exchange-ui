@@ -84,13 +84,13 @@ function LiveExhnage() {
             </thead>
             <tbody>
                 <tr>
-                    <th data-label="Name"><CurrencyDropdown setvalue={setbaseCurrency} value={baseCurrency} onChange={loadData}></CurrencyDropdown></th> 
+                    <th data-label="Name"><CurrencyDropdown setvalue={setbaseCurrency} value={baseCurrency} onChange={loadData} ></CurrencyDropdown></th> 
                     <th data-label="Amount">{toggleInverse? "Inverse" : 1}</th>
                 </tr>
 
                 {currencies.map((curr) => {
                     return <tr>
-                        <th data-label="Name">{curr}</th> 
+                        <th data-label="Name"><i className={"flag " + curr.substring(0,2).toLocaleLowerCase() } ></i>{curr}</th> 
                         <th data-label="Amount">{(data[curr])? (toggleInverse)? (1 / data[curr]).toFixed(3) + " " + baseCurrency:  data[curr]: ""}</th>
                         <th data-label="Change(24h)">{showChangeRate(curr)}</th>
                         <th data-label="Chart(24h)"></th>
@@ -101,7 +101,8 @@ function LiveExhnage() {
 
 
                 
-                <CurrencyDropdown onChange={addNewCurrency}></CurrencyDropdown>
+                <CurrencyDropdown onChange={addNewCurrency} addedClass={"add-new-currency-dropdown"}></CurrencyDropdown>
+                <input />
             </tbody>
         </table>
     </section>;
