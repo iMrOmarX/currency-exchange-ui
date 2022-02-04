@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import ToggleButton from 'react-toggle-button'
+
 import CurrencyDropdown from '../currency-dropdown/currency-dropdown-component';
 import "./live-exchange-component.css"
 function LiveExhnage() {
@@ -11,7 +13,9 @@ function LiveExhnage() {
     
     const [historyData, sethistoryData] = useState({});
     
-const fetchData = async (currency = "USD") => {
+    const [toggleInverse, settoggleInverse] = useState(false);
+
+    const fetchData = async (currency = "USD") => {
         
             function getYesterdayDate() {
                 let s = new Date(new Date().getTime() - 24*60*60*1000);
@@ -48,34 +52,46 @@ const fetchData = async (currency = "USD") => {
         const before = historyData[Object.keys(historyData)[0]][curr] 
         const after = historyData[Object.keys(historyData)[1]][curr]
 
-        return '%' + (((after - before)/ before) *100)
+        const per = (((after - before)/ before) *100);
+        return ((per < 0 )? "-":"") +  '%' + Math.abs(per.toFixed(2))
     }
 
     const loadData = (curr) => {
         fetchData(curr)
     }
     
-    return <section className='live-exhange-section'>
+    const addNewCurrency = (newCurrency) => {
+        setcurrencies([...currencies , newCurrency]);
+    }
 
+    return <section className='live-exhange-section'>
+        
         <h2>Live Exchange</h2>
         <table class="ui celled table exhange-table">
             <thead>
-                <tr><th>Name</th> 
-                <th>Amount</th>
-                <th>Change(24h)</th>
-                <th>Chart(24h)</th>
-                <th data-label="btn"><button className='edit-btn'>Edit</button></th>
-            </tr></thead>
+                <tr>
+                    <th>Inverse 
+                    <ToggleButton
+                        value={ toggleInverse }
+                        onToggle={(value) => {
+                            settoggleInverse(!value)
+                    }} /></th> 
+                    <th>Amount</th>
+                    <th>Change(24h)</th>
+                    <th>Chart(24h)</th>
+                    <th data-label="btn"><button className='edit-btn'>Edit</button></th>
+                </tr>
+            </thead>
             <tbody>
                 <tr>
                     <th data-label="Name"><CurrencyDropdown setvalue={setbaseCurrency} value={baseCurrency} onChange={loadData}></CurrencyDropdown></th> 
-                    <th data-label="Amount">1</th>
+                    <th data-label="Amount">{toggleInverse? "Inverse" : 1}</th>
                 </tr>
 
                 {currencies.map((curr) => {
                     return <tr>
                         <th data-label="Name">{curr}</th> 
-                        <th data-label="Amount">{(data[curr])?data[curr]: ""}</th>
+                        <th data-label="Amount">{(data[curr])? (toggleInverse)? (1 / data[curr]).toFixed(3) + " " + baseCurrency:  data[curr]: ""}</th>
                         <th data-label="Change(24h)">{showChangeRate(curr)}</th>
                         <th data-label="Chart(24h)"></th>
 
@@ -83,6 +99,9 @@ const fetchData = async (currency = "USD") => {
                     </tr>
                 })}
 
+
+                
+                <CurrencyDropdown onChange={addNewCurrency}></CurrencyDropdown>
             </tbody>
         </table>
     </section>;

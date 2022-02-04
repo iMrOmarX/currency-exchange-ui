@@ -9,7 +9,8 @@ function CurrencyDropdown({setvalue, value , onChange}) {
 
 
   const getValue = (event , data) => {
-    setvalue(data.value)
+    if(setvalue)
+      setvalue(data.value)
     if(onChange)
       onChange(data.value)
   }
