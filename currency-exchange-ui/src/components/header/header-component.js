@@ -2,7 +2,9 @@ import React from 'react';
 import './header-component.css'
 
 function Header() {
-  return (<header>
+  return (<header style={{
+    display: "flex"
+  }}>
     <div class="nav center">
         <img src={require("../../img/money-transfer-logo.png")} className="image-logo" alt="logo"/>
         <div class="righ-side">

@@ -4,11 +4,14 @@ import { Dropdown } from 'semantic-ui-react'
 
 import currenciesOptions from './currencies-data.json';
 import './currency-dropdown-component.css'
-function CurrencyDropdown({setvalue}) {
+
+function CurrencyDropdown({setvalue, value , onChange}) {
 
 
-  const getValue = (event , {value}) => {
-    setvalue(value)
+  const getValue = (event , data) => {
+    setvalue(data.value)
+    if(onChange)
+      onChange(data.value)
   }
   return <Dropdown
   placeholder='Select Currency'
@@ -18,6 +21,7 @@ function CurrencyDropdown({setvalue}) {
   options={currenciesOptions}
   className='currency-dropdown'
   onChange={getValue}
+  value={value}
 />
 
 }
