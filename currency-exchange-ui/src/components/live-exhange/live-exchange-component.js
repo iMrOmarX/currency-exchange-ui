@@ -1,5 +1,7 @@
+import { DeleteOutlined } from '@ant-design/icons/lib/icons';
 import React, { useEffect, useState } from 'react';
 import ToggleButton from 'react-toggle-button'
+
 
 import CurrencyDropdown from '../currency-dropdown/currency-dropdown-component';
 import "./live-exchange-component.css"
@@ -14,6 +16,8 @@ function LiveExhnage() {
     const [historyData, sethistoryData] = useState({});
     
     const [toggleInverse, settoggleInverse] = useState(false);
+
+    const [editEnabled, seteditEnabled] = useState(false);
 
     const fetchData = async (currency = "USD") => {
         
@@ -39,24 +43,36 @@ function LiveExhnage() {
             }
             
         }
-    useEffect(() => {
-        
 
+    useEffect(() => {
         fetchData()
     }, []);
 
-    const showChangeRate = (curr) => {
+    const showChangeRate = (curr ) => {
         if(!historyData || Object.keys(historyData).length ===0 ) {
             return ""
         }
         const before = historyData[Object.keys(historyData)[0]][curr] 
         const after = historyData[Object.keys(historyData)[1]][curr]
 
-        const per = (((after - before)/ before) *100);
+        let per = (((after - before)/ before) *100);
+        if(toggleInverse) 
+            per = -per ;
+        
         return ((per < 0 )? "-":"") +  '%' + Math.abs(per.toFixed(2))
     }
 
     const loadData = (curr) => {
+        if(currencies.includes(curr)) {
+            let currIndex = currencies.indexOf(curr)
+            let tmp = baseCurrency;
+
+            setbaseCurrency(curr);
+            let tmpArray = [...currencies];
+            tmpArray[currIndex] = tmp
+            console.log(tmpArray)
+            setcurrencies(tmpArray)
+        }
         fetchData(curr)
     }
     
@@ -64,6 +80,9 @@ function LiveExhnage() {
         setcurrencies([...currencies , newCurrency]);
     }
 
+    const toggleEdit = () => {
+        seteditEnabled(!editEnabled)
+    }
     return <section className='live-exhange-section'>
         
         <h2>Live Exchange</h2>
@@ -75,11 +94,14 @@ function LiveExhnage() {
                         value={ toggleInverse }
                         onToggle={(value) => {
                             settoggleInverse(!value)
-                    }} /></th> 
+                        
+                    }} 
+                        
+                    /></th> 
                     <th>Amount</th>
                     <th>Change(24h)</th>
                     <th>Chart(24h)</th>
-                    <th data-label="btn"><button className='edit-btn'>Edit</button></th>
+                    <th data-label="btn"><button className='edit-btn' onClick={toggleEdit}>Edit</button></th>
                 </tr>
             </thead>
             <tbody>
@@ -95,14 +117,24 @@ function LiveExhnage() {
                         <th data-label="Change(24h)">{showChangeRate(curr)}</th>
                         <th data-label="Chart(24h)"></th>
 
-                        <th data-label="btn"><button>Send</button></th>
+                        <th data-label="btn">
+                            <button>Send</button>
+                            <button onClick={()=> {
+                                setcurrencies(currencies.filter((s) => s !== curr))
+                            }}
+                                style ={{
+                                    display:editEnabled? "block" :"none"
+                                }}
+                            > <DeleteOutlined /></button>    
+                        </th>
+
                     </tr>
                 })}
 
 
                 
-                <CurrencyDropdown onChange={addNewCurrency} addedClass={"add-new-currency-dropdown"}></CurrencyDropdown>
-                <input />
+                <CurrencyDropdown onChange={addNewCurrency} addedClass={"add-new-currency-dropdown"} removedOptionsValues={[...currencies, baseCurrency]}></CurrencyDropdown>
+                
             </tbody>
         </table>
     </section>;

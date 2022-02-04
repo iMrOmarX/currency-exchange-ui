@@ -1,6 +1,7 @@
 import React from 'react';
 import ConvertSection from '../convert/convert-section-component';
 import './home-component.css'
+
 function Home() {
   return (<section id='home-section'>
       <div class="home-content center">
