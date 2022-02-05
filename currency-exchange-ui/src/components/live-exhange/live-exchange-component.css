@@ -10,7 +10,10 @@
 
 .table-header>th {
     font-size: 18px;
+    text-align: center !important;
+    height: 80;
 }
+
 
 .currency-data-row>th {
     padding: 5px;
@@ -19,7 +22,17 @@
 
 }
 
-.add-new-currency-btn {
+th:not(.currecny-th-name) {
+    text-align: center;
+    font-size: 18px;
+}
+
+
+.currency-dropdown-btn {
     width: 100% !important;
     padding: 0 !important;
+}
+
+.add-new-currency-btn {
+    height: 40px;
 }

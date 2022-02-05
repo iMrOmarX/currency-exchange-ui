@@ -1,70 +1,82 @@
-import { DeleteOutlined } from '@ant-design/icons/lib/icons';
-import React, { useEffect, useState } from 'react';
+import {DeleteOutlined} from '@ant-design/icons/lib/icons';
+import { click } from '@testing-library/user-event/dist/click';
+import React, {useEffect, useState} from 'react';
 import ToggleButton from 'react-toggle-button'
-import { Button } from 'semantic-ui-react';
-
+import {Button} from 'semantic-ui-react';
 
 import CurrencyDropdown from '../currency-dropdown/currency-dropdown-component';
 import "./live-exchange-component.css"
 function LiveExhnage() {
 
-    
-    const [data, setdata] = useState([]);
+    const [data,
+        setdata] = useState([]);
 
-    const [baseCurrency, setbaseCurrency] = useState("USD");
-    const [currencies, setcurrencies] = useState(["EUR", "ILS"]);
-    
-    const [historyData, sethistoryData] = useState({});
-    
-    const [toggleInverse, settoggleInverse] = useState(false);
+    const [baseCurrency,
+        setbaseCurrency] = useState("USD");
+    const [currencies,
+        setcurrencies] = useState(["EUR", "ILS"]);
 
-    const [editEnabled, seteditEnabled] = useState(false);
+    const [historyData,
+        sethistoryData] = useState({});
 
-    const fetchData = async (currency = "USD") => {
-        
-            function getYesterdayDate() {
-                let s = new Date(new Date().getTime() - 24*60*60*1000);
-                
-                return s.getFullYear() + '-' + ((s.getMonth()<10)? ('0'+ (s.getMonth()+1)): (s.getMonth()+1)) + '-' + ((s.getDate() < 10)? '0'+ s.getDate() : s.getDate());
-            }
-            
-            try {
-                const jsonData = await fetch(`https://freecurrencyapi.net/api/v2/latest?apikey=92b962e0-8460-11ec-a770-697cd1f97345&base_currency=${currency}`)
-                const result = await jsonData.json()
-                setdata(result.data)
+    const [toggleInverse,
+        settoggleInverse] = useState(false);
 
-                const jsonHistoryData = await fetch(`https://freecurrencyapi.net/api/v2/historical?apikey=92b962e0-8460-11ec-a770-697cd1f97345&base_currency=${currency}&date_from=${getYesterdayDate()}`)
-                console.log(`https://freecurrencyapi.net/api/v2/historical?apikey=92b962e0-8460-11ec-a770-697cd1f97345&base_currency=${currency}&date_from=${getYesterdayDate()}`)
-                const resultHistory = await jsonHistoryData.json()
-                
-                sethistoryData(resultHistory.data)
-            }
-            catch(e) {
-                console.log(e)
-            }
-            
+    const [editEnabled,
+        seteditEnabled] = useState(false);
+
+    const [showAddNewCurrencyDropdown, setshowAddNewCurrencyDropdown] = useState(false);
+
+    const fetchData = async(currency = "USD") => {
+
+        function getYesterdayDate() {
+            let s = new Date(new Date().getTime() - 24 * 60 * 60 * 1000);
+
+            return s.getFullYear() + '-' + ((s.getMonth() < 10)
+                ? ('0' + (s.getMonth() + 1))
+                : (s.getMonth() + 1)) + '-' + ((s.getDate() < 10)
+                ? '0' + s.getDate()
+                : s.getDate());
         }
+
+        try {
+            const jsonData = await fetch(`https://freecurrencyapi.net/api/v2/latest?apikey=92b962e0-8460-11ec-a770-697cd1f97345&base_currency=${currency}`)
+            const result = await jsonData.json()
+            setdata(result.data)
+
+            const jsonHistoryData = await fetch(`https://freecurrencyapi.net/api/v2/historical?apikey=92b962e0-8460-11ec-a770-697cd1f97345&base_currency=${currency}&date_from=${getYesterdayDate()}`)
+            console.log(`https://freecurrencyapi.net/api/v2/historical?apikey=92b962e0-8460-11ec-a770-697cd1f97345&base_currency=${currency}&date_from=${getYesterdayDate()}`)
+            const resultHistory = await jsonHistoryData.json()
+
+            sethistoryData(resultHistory.data)
+        } catch (e) {
+            console.log(e)
+        }
+
+    }
 
     useEffect(() => {
         fetchData()
     }, []);
 
-    const showChangeRate = (curr ) => {
-        if(!historyData || Object.keys(historyData).length ===0 ) {
+    const showChangeRate = (curr) => {
+        if (!historyData || Object.keys(historyData).length === 0) {
             return ""
         }
-        const before = historyData[Object.keys(historyData)[0]][curr] 
+        const before = historyData[Object.keys(historyData)[0]][curr]
         const after = historyData[Object.keys(historyData)[1]][curr]
 
-        let per = (((after - before)/ before) *100);
-        if(toggleInverse) 
-            per = -per ;
+        let per = (((after - before) / before) * 100);
+        if (toggleInverse) 
+            per = -per;
         
-        return ((per < 0 )? "-":"") +  '%' + Math.abs(per.toFixed(6))
+        return ((per < 0)
+            ? "-"
+            : "") + '%' + Math.abs(per.toFixed(6))
     }
 
     const loadData = (curr) => {
-        if(currencies.includes(curr)) {
+        if (currencies.includes(curr)) {
             let currIndex = currencies.indexOf(curr)
             let tmp = baseCurrency;
 
@@ -76,65 +88,90 @@ function LiveExhnage() {
         }
         fetchData(curr)
     }
-    
+
     const addNewCurrency = (newCurrency) => {
-        setcurrencies([...currencies , newCurrency]);
+        setcurrencies([
+            ...currencies,
+            newCurrency
+        ]);
     }
 
     const toggleEdit = () => {
         seteditEnabled(!editEnabled)
     }
     return <section className='live-exhange-section'>
-        
+
         <h2 className='live-exchange-title'>Live Exchange</h2>
         <table class="ui celled table exhange-table">
             <thead>
                 <tr className='table-header currency-data-row'>
-                    <th style={{
-                        display:"flex",
-                        height:60
-                    }}><span>Inverse</span> &nbsp;
-                    <span><ToggleButton
-                        value={ toggleInverse }
-                        onToggle={(value) => {
-                            settoggleInverse(!value)
-                        
-                    }} 
-                        
-                    /></span></th> 
-                    <th   >Amount</th>
+                    <th
+                        style={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        height: 80
+                    }}>
+                        <span>Inverse</span>
+                        &nbsp;
+                        <span><ToggleButton
+                            value={toggleInverse}
+                            onToggle={(value) => {
+        settoggleInverse(!value)
+    }}/></span>
+                    </th>
+                    <th >Amount</th>
                     <th>Change(24h)</th>
                     <th>Chart(24h)</th>
-                    <th data-label="btn"><Button className='edit-btn' onClick={toggleEdit}>Edit</Button></th>
+                    <th data-label="btn">
+                        <Button className='edit-btn' onClick={toggleEdit}>Edit</Button>
+                    </th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
                     <th data-label="Name">
-                    <Button size='large' className='add-new-currency-btn'>
-                        <CurrencyDropdown setvalue={setbaseCurrency} value={baseCurrency} onChange={loadData} ></CurrencyDropdown>
-                    </Button>    
-                    </th> 
-                    <th data-label="Amount">{toggleInverse? "Inverse" : 1}</th>
+                        <Button size='large' className='currency-dropdown-btn'>
+                            <CurrencyDropdown
+                                setvalue={setbaseCurrency}
+                                value={baseCurrency}
+                                onChange={loadData}></CurrencyDropdown>
+                        </Button>
+                    </th>
+                    <th data-label="Amount">{toggleInverse
+                            ? "Inverse"
+                            : 1}</th>
                 </tr>
 
                 {currencies.map((curr) => {
                     return <tr className='currency-data-row'>
-                        <th data-label="Name" ><i className={"flag " + curr.substring(0,2).toLocaleLowerCase() } ></i>{curr}</th> 
-                        <th data-label="Amount">{(data[curr])? (toggleInverse)? (1 / data[curr]).toFixed(3) + " " + baseCurrency:  data[curr]: ""}</th>
+                        <th data-label="Name" className='currecny-th-name'>
+                            <i
+                                className={"flag " + curr
+                                .substring(0, 2)
+                                .toLocaleLowerCase()}></i>{curr}</th>
+                        <th data-label="Amount">{(data[curr])
+                                ? (toggleInverse)
+                                    ? (1 / data[curr]).toFixed(3) + " " + baseCurrency
+                                    : data[curr]
+                                : ""}</th>
                         <th data-label="Change(24h)">{showChangeRate(curr)}</th>
                         <th data-label="Chart(24h)"></th>
 
                         <th data-label="btn">
                             <Button>Send</Button>
-                            <Button onClick={()=> {
+                            <Button
+                                onClick={() => {
                                 setcurrencies(currencies.filter((s) => s !== curr))
                             }}
-                                style ={{
-                                    display:editEnabled? "block" :"none"
-                                }}
-                                className="remove-currency-btn"
-                            > <DeleteOutlined /></Button>    
+                                style
+                                ={{
+                                display: editEnabled
+                                    ? "block"
+                                    : "none"
+                            }}
+                                className="remove-currency-btn">
+                                <DeleteOutlined/></Button>
                         </th>
 
                     </tr>
@@ -142,14 +179,27 @@ function LiveExhnage() {
 
                 <tr>
                     <th data-label="Name">
-                        <Button size='large' className='add-new-currency-btn'>
-
-                            <CurrencyDropdown onChange={addNewCurrency} addedClass={"add-new-currency-dropdown"} removedOptionsValues={[...currencies, baseCurrency]}></CurrencyDropdown>
+                        <Button size='large' className='currency-dropdown-btn'>
+                            <Button  size='large' className='currency-dropdown-btn add-new-currency-btn' onClick={()=> {
+                                setshowAddNewCurrencyDropdown(true)
+                            }}
+                                style={{
+                                    display:showAddNewCurrencyDropdown?"none":"block"
+                                }}
+                            >Add New Currency</Button>
+                            {showAddNewCurrencyDropdown && <CurrencyDropdown
+                                onChange={addNewCurrency}
+                                addedClass={"add-new-currency-dropdown"}
+                                clickToFocus={showAddNewCurrencyDropdown}
+                                removedOptionsValues={[
+                                ...currencies,
+                                baseCurrency,
+                                
+                            ]}></CurrencyDropdown>}
                         </Button>
-                    </th> 
+                    </th>
                 </tr>
-                
-                
+
             </tbody>
         </table>
     </section>;
