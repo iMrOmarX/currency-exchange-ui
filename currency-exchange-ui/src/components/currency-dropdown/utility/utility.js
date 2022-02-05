@@ -28,7 +28,7 @@ fs.readFile('./countries.json', (err, data) => {
         return !duplicate;
     })
     let jsondata = JSON.stringify(filteredData);
-    fs.writeFileSync('../currencies-data.json', jsondata);   
+    fs.writeFileSync('../../../data/currencies-data.json', jsondata);   
 });
 
 console.log('This is after the read call');

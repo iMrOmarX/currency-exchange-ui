@@ -1,15 +1,16 @@
-import React, {useEffect, useRef} from 'react';
+import React from 'react';
 
 import {Dropdown} from 'semantic-ui-react'
 
-import currenciesOptions from './currencies-data.json';
+import currenciesOptions from '../../data/currencies-data.json';
 import './currency-dropdown-component.css'
 
 function CurrencyDropdown({
     setvalue,
     value,
     onChange,
-    removedOptionsValues
+    removedOptionsValues,
+
 }) {
 
     const getValue = (event, data) => {

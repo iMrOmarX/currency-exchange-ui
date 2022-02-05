@@ -3,6 +3,7 @@ import { click } from '@testing-library/user-event/dist/click';
 import React, {useEffect, useState} from 'react';
 import ToggleButton from 'react-toggle-button'
 import {Button} from 'semantic-ui-react';
+import AddNewCurrencyDropDown from '../add-new-currency-dropdown/add-new-currency-dropdown-component';
 
 import CurrencyDropdown from '../currency-dropdown/currency-dropdown-component';
 import "./live-exchange-component.css"
@@ -179,24 +180,7 @@ function LiveExhnage() {
 
                 <tr>
                     <th data-label="Name">
-                        <Button size='large' className='currency-dropdown-btn'>
-                            <Button  size='large' className='currency-dropdown-btn add-new-currency-btn' onClick={()=> {
-                                setshowAddNewCurrencyDropdown(true)
-                            }}
-                                style={{
-                                    display:showAddNewCurrencyDropdown?"none":"block"
-                                }}
-                            >Add New Currency</Button>
-                            {showAddNewCurrencyDropdown && <CurrencyDropdown
-                                onChange={addNewCurrency}
-                                addedClass={"add-new-currency-dropdown"}
-                                clickToFocus={showAddNewCurrencyDropdown}
-                                removedOptionsValues={[
-                                ...currencies,
-                                baseCurrency,
-                                
-                            ]}></CurrencyDropdown>}
-                        </Button>
+                        <AddNewCurrencyDropDown baseCurrency={baseCurrency} setvalue={addNewCurrency} removedOptionsValues={[...currencies, baseCurrency]}></AddNewCurrencyDropDown>
                     </th>
                 </tr>
 
