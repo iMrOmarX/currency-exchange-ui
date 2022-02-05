@@ -2,6 +2,7 @@ import React , {useState} from 'react';
 import CurrencyDropdown from '../currency-dropdown/currency-dropdown-component';
 import './convert-section-component.css'
 import { FaExchangeAlt } from 'react-icons/fa';
+import { Button } from 'semantic-ui-react';
 
 
 function ConvertSection() {
@@ -78,7 +79,9 @@ function ConvertSection() {
           <label><b>To</b></label>
           <CurrencyDropdown className="currency-dropdown" setvalue={settoCurrency} value={toCurrency}></CurrencyDropdown>
           
-          <button className='convert-btn field' onClick={convertCurrency}>Convert</button>
+          <Button className='convert-btn field' onClick={convertCurrency} style={{
+            display:(showResult)? "none": "block"
+          }}>Convert</Button>
         </div>
 
     </div>
@@ -86,10 +89,20 @@ function ConvertSection() {
 
       <div className='result-section' style={{
         display:(showResult)? "flex" : "none"
-      }}> 
-        {amount} {fromCurrency} = <span className='output-conversion'> {amount * conversionValue} {toCurrency}</span>
+      }}>   
+        <div className='result-right'>
+          <div>
+            Result
+          </div>
+          <div>
 
-        
+          {amount}&nbsp; <b> {fromCurrency} </b>&nbsp; = &nbsp;<span className='output-conversion'> {(amount * conversionValue).toFixed(4)}&nbsp; <b>{toCurrency}</b></span>
+          </div>
+        </div>
+
+        <div className='result-left'>
+          <Button className='view-transfer-btn'>View Transfer Quote</Button>
+        </div>
       </div>
   </div>;
 }

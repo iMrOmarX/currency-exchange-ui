@@ -1,6 +1,7 @@
 import { DeleteOutlined } from '@ant-design/icons/lib/icons';
 import React, { useEffect, useState } from 'react';
 import ToggleButton from 'react-toggle-button'
+import { Button } from 'semantic-ui-react';
 
 
 import CurrencyDropdown from '../currency-dropdown/currency-dropdown-component';
@@ -59,7 +60,7 @@ function LiveExhnage() {
         if(toggleInverse) 
             per = -per ;
         
-        return ((per < 0 )? "-":"") +  '%' + Math.abs(per.toFixed(2))
+        return ((per < 0 )? "-":"") +  '%' + Math.abs(per.toFixed(6))
     }
 
     const loadData = (curr) => {
@@ -85,55 +86,69 @@ function LiveExhnage() {
     }
     return <section className='live-exhange-section'>
         
-        <h2>Live Exchange</h2>
+        <h2 className='live-exchange-title'>Live Exchange</h2>
         <table class="ui celled table exhange-table">
             <thead>
-                <tr>
-                    <th>Inverse 
-                    <ToggleButton
+                <tr className='table-header currency-data-row'>
+                    <th style={{
+                        display:"flex",
+                        height:60
+                    }}><span>Inverse</span> &nbsp;
+                    <span><ToggleButton
                         value={ toggleInverse }
                         onToggle={(value) => {
                             settoggleInverse(!value)
                         
                     }} 
                         
-                    /></th> 
-                    <th>Amount</th>
+                    /></span></th> 
+                    <th   >Amount</th>
                     <th>Change(24h)</th>
                     <th>Chart(24h)</th>
-                    <th data-label="btn"><button className='edit-btn' onClick={toggleEdit}>Edit</button></th>
+                    <th data-label="btn"><Button className='edit-btn' onClick={toggleEdit}>Edit</Button></th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <th data-label="Name"><CurrencyDropdown setvalue={setbaseCurrency} value={baseCurrency} onChange={loadData} ></CurrencyDropdown></th> 
+                    <th data-label="Name">
+                    <Button size='large' className='add-new-currency-btn'>
+                        <CurrencyDropdown setvalue={setbaseCurrency} value={baseCurrency} onChange={loadData} ></CurrencyDropdown>
+                    </Button>    
+                    </th> 
                     <th data-label="Amount">{toggleInverse? "Inverse" : 1}</th>
                 </tr>
 
                 {currencies.map((curr) => {
-                    return <tr>
-                        <th data-label="Name"><i className={"flag " + curr.substring(0,2).toLocaleLowerCase() } ></i>{curr}</th> 
+                    return <tr className='currency-data-row'>
+                        <th data-label="Name" ><i className={"flag " + curr.substring(0,2).toLocaleLowerCase() } ></i>{curr}</th> 
                         <th data-label="Amount">{(data[curr])? (toggleInverse)? (1 / data[curr]).toFixed(3) + " " + baseCurrency:  data[curr]: ""}</th>
                         <th data-label="Change(24h)">{showChangeRate(curr)}</th>
                         <th data-label="Chart(24h)"></th>
 
                         <th data-label="btn">
-                            <button>Send</button>
-                            <button onClick={()=> {
+                            <Button>Send</Button>
+                            <Button onClick={()=> {
                                 setcurrencies(currencies.filter((s) => s !== curr))
                             }}
                                 style ={{
                                     display:editEnabled? "block" :"none"
                                 }}
-                            > <DeleteOutlined /></button>    
+                                className="remove-currency-btn"
+                            > <DeleteOutlined /></Button>    
                         </th>
 
                     </tr>
                 })}
 
+                <tr>
+                    <th data-label="Name">
+                        <Button size='large' className='add-new-currency-btn'>
 
+                            <CurrencyDropdown onChange={addNewCurrency} addedClass={"add-new-currency-dropdown"} removedOptionsValues={[...currencies, baseCurrency]}></CurrencyDropdown>
+                        </Button>
+                    </th> 
+                </tr>
                 
-                <CurrencyDropdown onChange={addNewCurrency} addedClass={"add-new-currency-dropdown"} removedOptionsValues={[...currencies, baseCurrency]}></CurrencyDropdown>
                 
             </tbody>
         </table>
