@@ -54,6 +54,14 @@ th {
     animation-duration: 2s;
 
 }
+.remove-currency-btn {
+    border-radius: 50% !important;
+    background: red !important;
+    padding: 10px !important;
+    color: white !important;
+    
+}
+
 @keyframes fadeIn {
     0% {
         opacity: 0;

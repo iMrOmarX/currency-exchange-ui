@@ -99,7 +99,7 @@ function ConvertSection() {
         </div>
 
         <div className='result-left'>
-          <Button className='view-transfer-btn'>View Transfer Quote</Button>
+          <Button id="view-transfer-btn">View Transfer Quote</Button>
         </div>
       </div>
   </div>;

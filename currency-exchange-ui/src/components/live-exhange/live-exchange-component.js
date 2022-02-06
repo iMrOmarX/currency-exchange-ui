@@ -121,6 +121,7 @@ function LiveExhnage() {
                         <span>Inverse</span>
                         &nbsp;
                         <span><ToggleButton
+                            
                             value={toggleInverse}
                             onToggle={(value) => {
         settoggleInverse(!value)
@@ -176,7 +177,7 @@ function LiveExhnage() {
                                 onClick={() => {
                                 setcurrencies(currencies.filter((s) => s !== curr))
                             }}
-                            className="remove-currency-btn">
+                            className="remove-currency-btn ">
                                 <DeleteOutlined/></Button>}
                         </th>
 

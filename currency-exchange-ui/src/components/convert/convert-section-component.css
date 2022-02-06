@@ -28,7 +28,8 @@
 }
 
 .amount-input-field {
-    height: 38px;
+    height: 48px;
+    font-size: 20px;
     border: none;
     border-radius: 2px;
     width: 300px;
@@ -47,7 +48,7 @@
 
 .switch-btn {
     height: 45px;
-    margin-top:75px;
+    margin-top:80px;
     border: none;
     background: white;
     border-radius: 50%;
@@ -68,21 +69,16 @@
     justify-content: space-between;
 }
 
-.view-transfer-btn {
-    padding: 15px;
-    border: none;
-    border-radius: 15px;
-    margin-top: 25px;
-}
 
-.view-transfer-btn:hover {
-    background-color: #e66465;
-}
 .result-right {
-    color: rgb(214, 213, 213);
+    color: rgb(255, 255, 255);
     font-size: 30px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: flex-start;
+}
+
+#view-transfer-btn {
+    margin-top: 30px;
 }
