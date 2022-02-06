@@ -67,7 +67,7 @@ function ConvertSection() {
 
         <div id="from-currency-field" className='field'>
           <label><b>From</b></label>
-          <CurrencyDropdown className="currency-dropdown" setvalue={setfromCurrency} value={fromCurrency}></CurrencyDropdown>
+          <Button size='big' className='currency-dropdown-container '><CurrencyDropdown className="currency-dropdown" setvalue={setfromCurrency} value={fromCurrency}></CurrencyDropdown></Button>
         </div>
 
         <button className='switch-btn field' onClick={switchCurrencies}>
@@ -77,11 +77,9 @@ function ConvertSection() {
         <div id="to-currency-field" className='field'>
           
           <label><b>To</b></label>
-          <CurrencyDropdown className="currency-dropdown" setvalue={settoCurrency} value={toCurrency}></CurrencyDropdown>
+          <Button size='big' className='currency-dropdown-container'><CurrencyDropdown className="currency-dropdown" setvalue={settoCurrency} value={toCurrency}></CurrencyDropdown></Button>
           
-          <Button className='convert-btn field' onClick={convertCurrency} style={{
-            display:(showResult)? "none": "block"
-          }}>Convert</Button>
+          {!showResult && <Button className='field' id="convert-btn" onClick={convertCurrency}>Convert</Button>}
         </div>
 
     </div>

@@ -1,12 +1,12 @@
-import React, { useEffect, useRef, useState } from 'react';
-import {Button , Dropdown} from 'semantic-ui-react';
+import React, { useState} from 'react';
+import {Button, Dropdown} from 'semantic-ui-react';
 
 import currenciesOptions from '../../data/currencies-data.json'
 
-function AddNewCurrencyDropDown({  removedOptionsValues , setvalue , onChange , value}) {
-    
+function AddNewCurrencyDropDown({removedOptionsValues, setvalue, onChange, value}) {
 
-    const [showAddNewCurrencyDropdown, setshowAddNewCurrencyDropdown] = useState(false);
+    const [showAddNewCurrencyDropdown,
+        setshowAddNewCurrencyDropdown] = useState(false);
 
     const getValue = (event, data) => {
         setvalue(data.value)
@@ -15,7 +15,7 @@ function AddNewCurrencyDropDown({  removedOptionsValues , setvalue , onChange , 
 
     return <Button size='large' className='currency-dropdown-btn'>
         <Button
-            size='large'
+            size='big'
             className='currency-dropdown-btn add-new-currency-btn'
             onClick={() => {
             setshowAddNewCurrencyDropdown(true)
@@ -26,22 +26,20 @@ function AddNewCurrencyDropDown({  removedOptionsValues , setvalue , onChange , 
                 : "block"
         }}>Add New Currency</Button>
         {showAddNewCurrencyDropdown && <Dropdown
-
-        placeholder='Select Currency'
-        fluid
-        selection
-        search
-        options={removedOptionsValues
-        ? currenciesOptions.filter((option) => !removedOptionsValues.includes(option.value))
-        : currenciesOptions}
-        className={'currency-dropdown '}
-        onChange={getValue}
-        value={value}
-        defaultOpen
-        onBlur={(e) => {
+            placeholder='Select Currency'
+            fluid
+            selection
+            search
+            options={removedOptionsValues
+            ? currenciesOptions.filter((option) => !removedOptionsValues.includes(option.value))
+            : currenciesOptions}
+            className={'currency-dropdown '}
+            onChange={getValue}
+            value={value}
+            defaultOpen
+            onBlur={(e) => {
             setshowAddNewCurrencyDropdown(false)
-        }}
-        />}
+        }}/>}
     </Button>;
 
 }

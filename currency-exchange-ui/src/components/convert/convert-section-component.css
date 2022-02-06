@@ -14,11 +14,11 @@
     height: 60px;
     width: 100%;
 }
-#from-currency-field>.currency-dropdown, #to-currency-field>.currency-dropdown {
+
+.currency-dropdown-container {
+    padding: 0 !important;
     width: 275px;
 }
-
-
 .field {
     margin: 5px;
     margin-top: 50px;
@@ -54,18 +54,12 @@
     font-size: 27px;
     padding: 9px;
 }
-.convert-btn {
+#convert-btn {
     align-self: flex-end;
     margin-top: 50px;
     padding: 10px 30px;
-    border-radius: 15px;
     border: none;
 }
-
-.convert-btn:hover {
-    background-color: #e66465;
-}
-
 
 .result-section {
     margin-top: 70px;
